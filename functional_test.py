@@ -15,16 +15,17 @@ class NewVisitorTest(unittest.TestCase):
             caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
             caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
             caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
-        self.url = 'http://localhost:8000'
+            self.username = os.environ['akagilnc']
+            self.key = os.environ['4039c2f0-db47-4f5f-b7af-c29867069d8b']
+            hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
 
-        self.username = os.environ['akagilnc']
-        self.key = os.environ['4039c2f0-db47-4f5f-b7af-c29867069d8b']
-        hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
+            self.browser = webdriver.Remote(desired_capabilities=self.caps,
+                                            command_executor="http://%s/wd/hub" % hub_url)
 
-        self.browser = webdriver.Remote(desired_capabilities=self.caps, command_executor="http://%s/wd/hub" % hub_url)
-
-        #self.browser = webdriver.Firefox()
-        #self.browser.implicitly_wait(3)
+        else:
+            self.url = 'http://localhost:8000'
+            self.browser = webdriver.Firefox()
+            self.browser.implicitly_wait(3)
 
     def tearDown(self):
         self.browser.quit()
@@ -32,8 +33,12 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
-        # self.browser.get('http://localhost:8000')
-        self.browser.get()
+        #
+        if (os.environ.get('TRAVIS') and
+                os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
+            self.browser.get()
+        else:
+            self.browser.get(self.url)
 
         # She notice the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
