@@ -11,7 +11,10 @@ class NewVisitorTest(unittest.TestCase):
                 os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
             self.username = os.environ['SAUCE_USERNAME']
             self.key = os.environ['SAUCE_ACCESS_KEY']
-            capabilities = {'tunnel-identifier': os.environ['TRAVIS_JOB_NUMBER'],
+            capabilities = {'browserName': "firefox",
+                            'platform': "Windows 10",
+                            'version': "53.0",
+                            'tunnel-identifier': os.environ['TRAVIS_JOB_NUMBER'],
                             'build': os.environ['TRAVIS_BUILD_NUMBER'],
                             'tags': [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']}
 
