@@ -21,7 +21,7 @@ class NewVisitorTest(unittest.TestCase):
             self.hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
 
             self.browser = webdriver.Remote(desired_capabilities=capabilities,
-                                            command_executor="http://%s/wd/hub" % hub_url)
+                                            command_executor="http://%s/wd/hub" % self.hub_url)
 
         else:
             self.url = 'http://localhost:8000'
