@@ -28,6 +28,8 @@ class NewVisitorTest(unittest.TestCase):
             self.browser = webdriver.Firefox()
             self.browser.implicitly_wait(3)
 
+        self.browser.implicitly_wait(5)
+
     def tearDown(self):
         self.browser.quit()
 
@@ -37,7 +39,7 @@ class NewVisitorTest(unittest.TestCase):
         #
         if (os.environ.get('TRAVIS') and
                 os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
-            self.browser.get(self.hub_url)
+            self.browser.get(self.url)
         else:
             self.browser.get(self.url)
 
