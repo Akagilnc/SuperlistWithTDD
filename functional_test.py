@@ -18,7 +18,7 @@ class NewVisitorTest(unittest.TestCase):
                             'build': os.environ['TRAVIS_BUILD_NUMBER'],
                             'tags': [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']}
 
-            hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
+            self.hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
 
             self.browser = webdriver.Remote(desired_capabilities=capabilities,
                                             command_executor="http://%s/wd/hub" % hub_url)
@@ -37,7 +37,7 @@ class NewVisitorTest(unittest.TestCase):
         #
         if (os.environ.get('TRAVIS') and
                 os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
-            self.browser.get()
+            self.browser.get(self.hub_url)
         else:
             self.browser.get(self.url)
 
