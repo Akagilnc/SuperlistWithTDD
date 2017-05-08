@@ -7,6 +7,7 @@ import unittest
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
+        self.url = 'http://localhost:8000'
         if (os.environ.get('TRAVIS') and
                 os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
             self.username = os.environ['SAUCE_USERNAME']
@@ -24,11 +25,9 @@ class NewVisitorTest(unittest.TestCase):
                                             command_executor="http://%s/wd/hub" % self.hub_url)
 
         else:
-            self.url = 'http://localhost:8000'
             self.browser = webdriver.Firefox()
-            self.browser.implicitly_wait(3)
 
-        self.browser.implicitly_wait(5)
+        self.browser.implicitly_wait(3)
 
     def tearDown(self):
         self.browser.quit()
