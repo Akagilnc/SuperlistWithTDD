@@ -12,11 +12,12 @@ class NewVisitorTest(unittest.TestCase):
         caps['name'] = 'Testing'
         if (os.environ.get('TRAVIS') and
             os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
+            self.username = os.environ['SAUCE_USERNAME']
+            self.key = os.environ['SAUCE_ACCESS_KEY']
             caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
             caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
             caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
-            self.username = os.environ['akagilnc']
-            self.key = os.environ['4039c2f0-db47-4f5f-b7af-c29867069d8b']
+
             hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
 
             self.browser = webdriver.Remote(desired_capabilities=self.caps,
