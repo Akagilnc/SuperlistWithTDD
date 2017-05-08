@@ -1,26 +1,23 @@
 import os
-
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 
 
 class NewVisitorTest(unittest.TestCase):
-
     def setUp(self):
-        caps = {}
-        caps['name'] = 'Testing'
         if (os.environ.get('TRAVIS') and
-            os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
+                os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
             self.username = os.environ['SAUCE_USERNAME']
             self.key = os.environ['SAUCE_ACCESS_KEY']
-            caps['tunnel-identifier'] = os.environ['TRAVIS_JOB_NUMBER']
-            caps['build'] = os.environ['TRAVIS_BUILD_NUMBER']
-            caps['tags'] = [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']
+            capabilities = {'tunnel-identifier': os.environ['TRAVIS_JOB_NUMBER'],
+                            'build': os.environ['TRAVIS_BUILD_NUMBER'],
+                            'tags': [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']}
 
             hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
 
-            self.browser = webdriver.Remote(desired_capabilities=self.caps,
+            self.browser = webdriver.Remote(desired_capabilities=capabilities,
                                             command_executor="http://%s/wd/hub" % hub_url)
 
         else:
@@ -81,6 +78,7 @@ class NewVisitorTest(unittest.TestCase):
         # She visits that URL - her to-do list is still there.
 
         # Satisfied, she goes back to sleep
+
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')
