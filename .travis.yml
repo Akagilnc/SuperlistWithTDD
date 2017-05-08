@@ -5,7 +5,19 @@ python:
 env:
   DJANGO_VERSION=1.11.1
 
+addons:
+  sauce_connect:
+    username: "akagilnc"
+    access_key: "4039c2f0-db47-4f5f-b7af-c29867069d8b"
+
 install:
   pip install -r requirements.txt
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3
+  - rackup
+  - sleep 3
 
 script: pytest
