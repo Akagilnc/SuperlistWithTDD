@@ -1,10 +1,5 @@
 language: python
 
-addons:
-  sauce_connect:
-    username: "akagilnc"
-    access_key: "4039c2f0-db47-4f5f-b7af-c29867069d8b"
-
 install:
   pip install -r requirements.txt
 
@@ -13,7 +8,6 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
   - python manage.py runserver &
-  - sleep 3
 
 
 
