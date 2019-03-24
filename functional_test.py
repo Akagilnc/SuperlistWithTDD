@@ -8,24 +8,8 @@ import unittest
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
         self.url = 'http://localhost:8000'
-        if (os.environ.get('TRAVIS') and
-                os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
-            self.username = os.environ['SAUCE_USERNAME']
-            self.key = os.environ['SAUCE_ACCESS_KEY']
-            capabilities = {'browserName': "firefox",
-                            'platform': "Windows 10",
-                            'version': "53.0",
-                            'tunnel-identifier': os.environ['TRAVIS_JOB_NUMBER'],
-                            'build': os.environ['TRAVIS_BUILD_NUMBER'],
-                            'tags': [os.environ['TRAVIS_PYTHON_VERSION'], 'CI']}
-
-            self.hub_url = "%s:%s@localhost:4445" % (self.username, self.key)
-
-            self.browser = webdriver.Remote(desired_capabilities=capabilities,
-                                            command_executor="http://%s/wd/hub" % self.hub_url)
-
-        else:
-            self.browser = webdriver.Firefox()
+        
+        self.browser = webdriver.Firefox()
 
         self.browser.implicitly_wait(3)
 
@@ -36,11 +20,7 @@ class NewVisitorTest(unittest.TestCase):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
         #
-        if (os.environ.get('TRAVIS') and
-                os.environ.get('HAS_JOSH_K_SEAL_OF_APPROVAL')):
-            self.browser.get(self.url)
-        else:
-            self.browser.get(self.url)
+        self.browser.get(self.url)
 
         # She notice the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
