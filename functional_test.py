@@ -9,7 +9,7 @@ class NewVisitorTest(unittest.TestCase):
     def setUp(self):
         self.url = 'http://localhost:8000'
         
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Firefox('./geckodriver')
 
         self.browser.implicitly_wait(3)
 
