@@ -1,6 +1,7 @@
 import os
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
 import unittest
 
@@ -8,8 +9,10 @@ import unittest
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
         self.url = 'http://localhost:8000'
+        options = Options()
+        options.add_argument('-headless')
         
-        self.browser = webdriver.Firefox(executable_path=r'./geckodriver')
+        self.browser = webdriver.Firefox(executable_path=r'./geckodriver'， firefox_options=options)
 
         self.browser.implicitly_wait(3)
 
