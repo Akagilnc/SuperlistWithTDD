@@ -12,7 +12,7 @@ class NewVisitorTest(unittest.TestCase):
         options = Options()
         options.add_argument('-headless')
         
-        self.browser = webdriver.Firefox(executable_path=r'./geckodriver'， firefox_options=options)
+        self.browser = webdriver.Firefox(executable_path=r'./geckodriver' firefox_options=options)
 
         self.browser.implicitly_wait(3)
 
